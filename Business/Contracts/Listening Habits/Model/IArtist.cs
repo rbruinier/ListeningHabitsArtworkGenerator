@@ -1,4 +1,4 @@
 public interface IArtist {
-    public string Name { get; set; }
-    public string MBId { get; set; }
+    string Name { get; set; }
+    string MBId { get; set; }
 }

@@ -1,5 +1,5 @@
 public interface IAlbumImage {
-    public string Size { get; set; }
+    string Size { get; set; }
 
-    public string Url { get; set; }
+    string Url { get; set; }
 }

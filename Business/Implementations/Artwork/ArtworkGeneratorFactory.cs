@@ -1,17 +1,26 @@
-using System;
+﻿using System;
+using ListeningHabitsArtworkGenerator.Business.Contracts.Artwork;
 
-public enum ArtworkStyle {
+public enum ArtworkStyle
+{
     SquareCollage
 }
 
-public class ArtworkGeneratorFactory {
-    public static IArtworkGenerator Create(ArtworkStyle style) {
-        switch(style) {
-            case ArtworkStyle.SquareCollage: {
-                return new SquareCollageArtworkGenerator();
+namespace ListeningHabitsArtworkGenerator.Business.Implementations.Artwork
+{
+    public class ArtworkGeneratorFactory
+    {
+        public static IArtworkGenerator Create(ArtworkStyle style)
+        {
+            switch (style)
+            {
+                case ArtworkStyle.SquareCollage:
+                    {
+                        return new SquareCollageArtworkGenerator();
+                    }
             }
-        }
 
-        throw new ApplicationException("Unknown artwork style provided.");
+            throw new ApplicationException("Unknown artwork style provided.");
+        }
     }
 }

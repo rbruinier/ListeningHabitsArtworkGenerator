@@ -1,6 +1,11 @@
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Collections.Generic;
+using ListeningHabitsArtworkGenerator.Business.Contracts.ListeningHabits.Model;
 
-public interface IArtworkGenerator {
-    Task CreateImageWithAlbums(List<IAlbum> albums, string outputPath);   
+namespace ListeningHabitsArtworkGenerator.Business.Contracts.Artwork
+{
+    public interface IArtworkGenerator
+    {
+        Task CreateImageWithAlbums(List<IAlbum> albums, string outputPath);
+    }
 }

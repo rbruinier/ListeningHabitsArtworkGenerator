@@ -1,5 +1,11 @@
+﻿using System;
 using System.Threading.Tasks;
+using ListeningHabitsArtworkGenerator.Business.Contracts.ListeningHabits.Model;
 
-public interface IListeningHabitsApi {        
-    Task<ITopAlbums> FetchTopAlbums(string username);
+namespace ListeningHabitsArtworkGenerator.Business.Contracts.ListeningHabits
+{
+    public interface IListeningHabitsApi
+    {
+        Task<ITopAlbums> FetchTopAlbums(string username);
+    }
 }

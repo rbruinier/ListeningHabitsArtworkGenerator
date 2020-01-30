@@ -1,8 +1,10 @@
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System;
+using ListeningHabitsArtworkGenerator.Business.Contracts.ListeningHabits.Model;
 
-namespace LastFm {
-    public struct Artist: IArtist {
+namespace ListeningHabitsArtworkGenerator.Business.Implementations.ListeningHabits.LastFm.Model
+{
+    public struct Artist : IArtist
+    {
         public string Name { get; set; }
         public string MBId { get; set; }
     }

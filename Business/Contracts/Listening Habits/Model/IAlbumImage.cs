@@ -1,5 +1,11 @@
-public interface IAlbumImage {
-    string Size { get; set; }
+﻿using System;
 
-    string Url { get; set; }
+namespace ListeningHabitsArtworkGenerator.Business.Contracts.ListeningHabits.Model
+{
+    public interface IAlbumImage
+    {
+        string Size { get; set; }
+
+        string Url { get; set; }
+    }
 }

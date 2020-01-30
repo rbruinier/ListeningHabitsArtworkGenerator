@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Business\" />
+    <Folder Include="Business\Contracts\" />
+    <Folder Include="Business\Contracts\Listening Habits\" />
+    <Folder Include="Business\Contracts\Listening Habits\Model\" />
+    <Folder Include="Business\Implementations\" />
+    <Folder Include="Business\Implementations\Listening Habits\" />
+    <Folder Include="Business\Implementations\Listening Habits\LastFm\" />
+    <Folder Include="Business\Implementations\Listening Habits\LastFm\Model\" />
+    <Folder Include="Business\Contracts\Artwork\" />
+    <Folder Include="Business\Implementations\Artwork\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0007" />
+    <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0007" />
+  </ItemGroup>
+</Project>

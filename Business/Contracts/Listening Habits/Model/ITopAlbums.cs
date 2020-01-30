@@ -1,5 +1,10 @@
+﻿using System;
 using System.Collections.Generic;
 
-public interface ITopAlbums {    
-    List<IAlbum> Albums { get; set; }
+namespace ListeningHabitsArtworkGenerator.Business.Contracts.ListeningHabits.Model
+{
+    public interface ITopAlbums
+    {
+        List<IAlbum> Albums { get; set; }
+    }
 }

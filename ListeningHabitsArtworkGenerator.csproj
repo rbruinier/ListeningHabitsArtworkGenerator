@@ -21,5 +21,10 @@
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0007" />
     <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta0007" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Business\Implementations\Listening Habits\ListeningHabitsApiFactory.cs" />
+    <Compile Remove="Business\Implementations\Artwork\ArtworkGeneratorFactory.cs" />
   </ItemGroup>
 </Project>

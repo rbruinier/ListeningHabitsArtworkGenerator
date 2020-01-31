@@ -15,8 +15,23 @@ namespace ListeningHabitsArtworkGenerator.Business.Implementations.ListeningHabi
 {
     public class ListeningHabitsApi : IListeningHabitsApi
     {
-        private const string baseUrl = "https://ws.audioscrobbler.com/2.0/?";
-        private const string apiKey = "37c275055b74fd63d78944c9ddbacc36";
+        private IHttpClientFactory _httpClientFactory;
+
+        private const string _baseUrl = "https://ws.audioscrobbler.com/2.0/?";
+        private const string _apiKey = "37c275055b74fd63d78944c9ddbacc36";
+
+        private static readonly Dictionary<TopAlbumPeriod, string> _periodMapping = new Dictionary<TopAlbumPeriod, string>() {
+            { TopAlbumPeriod.OneMonth, "1month" },
+            { TopAlbumPeriod.ThreeMonths, "3month" },
+            { TopAlbumPeriod.SixMonths, "6month" },
+            { TopAlbumPeriod.OneYear, "12month" },
+            { TopAlbumPeriod.AllTime, "overall" }
+        };
+
+        public ListeningHabitsApi(IHttpClientFactory httpClientFactory)
+        {
+            _httpClientFactory = httpClientFactory;
+        }
 
         public struct TopAlbumsResponse
         {
@@ -24,19 +39,21 @@ namespace ListeningHabitsArtworkGenerator.Business.Implementations.ListeningHabi
             public TopAlbums TopAlbums { get; set; }
         }
 
-        public async Task<ITopAlbums> FetchTopAlbums(string username)
-        {
-            using var client = new HttpClient();
+        public async Task<ITopAlbums> FetchTopAlbums(string username, TopAlbumPeriod period)
+        {           
+            var periodAsString = _periodMapping[period];
 
             var url = BuildUrl("user.gettopalbums", new Dictionary<string, string>() {
                 { "user", username },
-                { "period", "12month" },
+                { "period", periodAsString },
                 { "limit", "100" },
             });
 
             Console.WriteLine("Fetching {0}", url);
 
-            var rawJsonAsString = await client.GetStringAsync(url);
+            var httpClient = _httpClientFactory.CreateClient();
+
+            var rawJsonAsString = await httpClient.GetStringAsync(url);
 
             var options = new JsonSerializerOptions();
 
@@ -49,10 +66,10 @@ namespace ListeningHabitsArtworkGenerator.Business.Implementations.ListeningHabi
 
         private string BuildUrl(string method, Dictionary<string, string> parameters)
         {
-            StringBuilder completeUrl = new StringBuilder(baseUrl);
+            StringBuilder completeUrl = new StringBuilder(_baseUrl);
 
             parameters["method"] = method;
-            parameters["api_key"] = apiKey;
+            parameters["api_key"] = _apiKey;
             parameters["format"] = "json";
 
             var formattedParameters = parameters.Select(e => $"{e.Key}={e.Value}").ToList();

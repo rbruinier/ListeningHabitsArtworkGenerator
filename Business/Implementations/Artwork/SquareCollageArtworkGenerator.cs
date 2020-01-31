@@ -16,7 +16,12 @@ namespace ListeningHabitsArtworkGenerator.Business.Implementations.Artwork
 {
     public class SquareCollageArtworkGenerator : IArtworkGenerator
     {
-        private HttpClient httpClient = new HttpClient();
+        private IHttpClientFactory _httpClientFactory;
+
+        public SquareCollageArtworkGenerator(IHttpClientFactory httpClientFactory)
+        {
+            _httpClientFactory = httpClientFactory;
+        }
 
         public async Task CreateImageWithAlbums(List<IAlbum> albums, string outputPath)
         {
@@ -29,6 +34,8 @@ namespace ListeningHabitsArtworkGenerator.Business.Implementations.Artwork
                 throw new ApplicationException("Not enough images with artwork available to create a collage");
             }
 
+            var httpClient = _httpClientFactory.CreateClient();
+            
             using var image = new Image<Rgba32>(600, 600);
 
             var albumCounter = 0;
@@ -38,7 +45,7 @@ namespace ListeningHabitsArtworkGenerator.Business.Implementations.Artwork
                 {
                     var url = albumsWithArtwork[albumCounter].BestQualityImageUrl;
 
-                    var imageStream = await this.FetchImage(url);
+                    var imageStream = await this.FetchImage(url, httpClient);
 
                     using var albumArtworkImage = Image.Load(imageStream);
 
@@ -59,11 +66,11 @@ namespace ListeningHabitsArtworkGenerator.Business.Implementations.Artwork
             image.SaveAsPng(outputStream);
         }
 
-        private async Task<Stream> FetchImage(string url)
+        private async Task<Stream> FetchImage(string url, HttpClient httpClient)
         {
             Console.WriteLine($"Fetching image '{url}'");
 
-            return await this.httpClient.GetStreamAsync(url);
+            return await httpClient.GetStreamAsync(url);
         }
 
         private void PrepareOutputPath(string path)
